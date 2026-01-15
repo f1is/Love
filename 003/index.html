@@ -58,6 +58,17 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
+            /* 初始隐藏，在情书显示后才出现 */
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+        
+        #dynamic-info.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         #dynamic-info h3 {
@@ -256,6 +267,13 @@
             50% { transform: scale(1.05); }
         }
         
+        /* 情书内容区域 */
+        #text {
+            min-height: 400px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
         /* 响应式调整 */
         @media (max-width: 768px) {
             .love-metric {
@@ -281,6 +299,11 @@
             .click-message p {
                 font-size: 16px;
             }
+            
+            #text {
+                min-height: 300px;
+                padding: 15px;
+            }
         }
         
         /* 音乐播放器样式 */
@@ -299,6 +322,11 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border: 2px solid #ffc8dd;
+            display: none; /* 初始隐藏 */
+        }
+        
+        .music-control.show {
+            display: flex;
         }
         
         .music-control i {
@@ -355,7 +383,7 @@
                 </div>
             </div>
             
-            <!-- 浪漫动态信息区域 -->
+            <!-- 浪漫动态信息区域 - 初始隐藏，在情书显示后才出现 -->
             <div id="dynamic-info">
                 <h3>❤ 我们的爱情纪念册 ❤</h3>
                 
@@ -555,6 +583,14 @@
             }
         }
         
+        // 显示爱情纪念册（在情书显示后延迟显示）
+        function showLoveAlbum() {
+            const dynamicInfo = document.getElementById('dynamic-info');
+            setTimeout(() => {
+                dynamicInfo.classList.add('show');
+            }, 3000); // 情书显示3秒后才显示纪念册
+        }
+        
         // 点击开始函数
         function startExperience() {
             const clickToStart = document.getElementById('clickToStart');
@@ -572,23 +608,25 @@
                 if (!musicStarted) {
                     audio.play().then(() => {
                         musicStarted = true;
-                        musicControl.style.display = 'flex';
+                        musicControl.classList.add('show');
                     }).catch(error => {
                         console.log('音频自动播放被阻止，需要用户交互');
-                        musicControl.style.display = 'flex';
+                        musicControl.classList.add('show');
                     });
                 }
                 
                 // 初始化动画
-                initAnimation();
+                if (window.initAnimation) {
+                    window.initAnimation();
+                }
+                
+                // 更新动态内容但不立即显示纪念册
+                updateDynamicContent();
+                
+                // 等待情书动画完成后再显示纪念册
+                setTimeout(showLoveAlbum, 5000);
+                
             }, 1000);
-        }
-        
-        // 初始化动画
-        function initAnimation() {
-            // 原有的动画初始化代码
-            // 这里会触发原有的动画效果
-            console.log('开始动画效果');
         }
         
         // 页面加载时初始化
@@ -606,10 +644,6 @@
 
         // 原有的动画代码
         (function () {
-            // 这里保留原有的动画逻辑...
-            // 由于代码很长，我保持原有的动画逻辑不变
-            // 只需要确保它在startExperience函数中被正确调用
-            
             var canvas = $('#canvas');
 
             if (!canvas[0].getContext) {
@@ -746,7 +780,8 @@
 
                 $("#code").show().typewriter();
                 $("#clock-box").fadeIn(500);
-                $("#dynamic-info").fadeIn(500);
+                
+                // 注意：这里不显示dynamic-info
                 
                 updateDynamicContent();
                 
