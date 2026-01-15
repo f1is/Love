@@ -453,6 +453,101 @@
                 heartsContainer.appendChild(heart);
             }
         }
+
+         // 创建爱情纪念册的函数 - 详细解释版
+        function createLoveAlbum() {
+            console.log('开始创建爱情纪念册...');
+            
+            // 1. 首先找到要插入的位置
+            // clock-box是页面上已有的元素，我们要在它前面插入纪念册
+            const clockBox = document.getElementById('clock-box');
+            
+            if (!clockBox) {
+                console.error('找不到clock-box元素！');
+                return;
+            }
+            
+            // 2. 创建纪念册的HTML字符串
+            // 这里使用模板字符串（反引号），可以包含多行HTML和变量
+            const albumHTML = `
+                <div class="love-album">
+                    <h3>❤ 我们的爱情纪念册 ❤</h3>
+                    
+                    <div class="romantic-date">
+                        <span class="heart-icon">❤</span>
+                        今天：<span id="current-date">${getCurrentDate()}</span>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                    
+                    <div class="love-metric">
+                        <div class="metric-box">
+                            <span class="metric-label">在一起天数</span>
+                            <span class="metric-value">${calculateTogetherDays()}</span>
+                            <span class="heart-icon">❤</span>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <span class="metric-label">下个纪念日</span>
+                            <span class="metric-value">${calculateNextHundredDays()}</span>
+                            <span class="metric-label">天后</span>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <span class="metric-label">爱情温度</span>
+                            <span class="metric-value">100°</span>
+                            <span class="heart-icon">♥</span>
+                        </div>
+                    </div>
+                    
+                    <div class="love-note">
+                        每一分每一秒，爱你都在加深一分<br>
+                        从 <span style="color: #e91e63; font-weight: bold;">${getStartDate()}</span> 开始，我们的故事永不结束
+                    </div>
+                </div>
+            `;
+            
+            // 3. 在clock-box元素之前插入纪念册
+            // insertAdjacentHTML有4个位置可选：
+            // 'beforebegin': 在元素前面插入（作为兄弟元素）
+            // 'afterbegin': 在元素内部的开头插入
+            // 'beforeend': 在元素内部的结尾插入
+            // 'afterend': 在元素后面插入（作为兄弟元素）
+            clockBox.insertAdjacentHTML('beforebegin', albumHTML);
+            
+            console.log('爱情纪念册创建完成！');
+        }
+        
+        // 辅助函数：获取当前日期
+        function getCurrentDate() {
+            const now = new Date();
+            return now.toLocaleDateString('zh-CN', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                weekday: 'long' 
+            });
+        }
+        
+        // 辅助函数：获取开始日期
+        function getStartDate() {
+            return startDate.toLocaleDateString('zh-CN', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        // 4. 在适当的时间调用这个函数
+        // 比如在情书动画完成后调用
+        function showLoveLetter() {
+            // 显示情书...
+            $("#code").show().typewriter();
+            
+            // 10秒后（情书打字完成后）创建纪念册
+            setTimeout(() => {
+                createLoveAlbum();
+            }, 10000);
+        }
         
         // 计算时间间隔
         function calculateRomanticDuration() {
