@@ -19,7 +19,7 @@
     <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
     <style>
-        /* 浪漫自定义样式 - 优化版 */
+        /* 浪漫自定义样式 */
         .romantic-text {
             color: #e91e63;
             font-weight: bold;
@@ -46,7 +46,8 @@
             border-radius: 4px;
         }
         
-        #dynamic-info {
+        /* 爱情纪念册样式 - 动态创建 */
+        .love-album {
             text-align: center;
             margin: 25px auto;
             padding: 20px;
@@ -58,20 +59,19 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
-            /* 初始隐藏，在所有动画完成后才显示 */
-            display: none;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 1s ease;
+            animation: fadeInUp 1s ease forwards 1s;
         }
         
-        #dynamic-info.show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
-        #dynamic-info h3 {
+        .love-album h3 {
             color: #e91e63;
             font-size: 24px;
             margin-bottom: 15px;
@@ -81,7 +81,7 @@
             padding-bottom: 10px;
         }
         
-        #dynamic-info h3::after {
+        .love-album h3::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -158,6 +158,33 @@
             font-weight: 500;
         }
         
+        .love-note {
+            margin-top: 20px;
+            font-style: italic;
+            color: #666;
+            font-size: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fff, #fff9fb);
+            border-radius: 10px;
+            border: 1px solid #ffc8dd;
+            line-height: 1.6;
+        }
+        
+        .special-day {
+            animation: glow 2s infinite alternate;
+            color: #ff4081 !important;
+            font-weight: bold;
+            padding: 3px 8px;
+            background: rgba(255, 64, 129, 0.1);
+            border-radius: 5px;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(255, 64, 129, 0.5); }
+            to { box-shadow: 0 0 15px rgba(255, 64, 129, 0.8); }
+        }
+        
+        /* 浮动爱心背景 */
         .floating-hearts {
             position: fixed;
             top: 0;
@@ -177,47 +204,10 @@
         }
         
         @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .love-note {
-            margin-top: 20px;
-            font-style: italic;
-            color: #666;
-            font-size: 15px;
-            padding: 15px;
-            background: linear-gradient(135deg, #fff, #fff9fb);
-            border-radius: 10px;
-            border: 1px solid #ffc8dd;
-            line-height: 1.6;
-        }
-        
-        /* 特殊日子提醒 */
-        .special-day {
-            animation: glow 2s infinite alternate;
-            color: #ff4081 !important;
-            font-weight: bold;
-            padding: 3px 8px;
-            background: rgba(255, 64, 129, 0.1);
-            border-radius: 5px;
-        }
-        
-        @keyframes glow {
-            from { box-shadow: 0 0 5px rgba(255, 64, 129, 0.5); }
-            to { box-shadow: 0 0 15px rgba(255, 64, 129, 0.8); }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
         /* 点击种子样式 */
@@ -301,12 +291,6 @@
             .metric-box {
                 width: 100%;
                 max-width: 300px;
-                min-width: auto;
-            }
-            
-            #dynamic-info {
-                margin: 15px;
-                padding: 15px;
             }
             
             .seed-message h2 {
@@ -323,7 +307,7 @@
             }
         }
         
-        /* 音乐播放器样式 */
+        /* 音乐控制按钮 */
         .music-control {
             position: fixed;
             bottom: 20px;
@@ -339,9 +323,9 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border: 2px solid #ffc8dd;
-            display: none;
             opacity: 0;
             transition: opacity 1s ease;
+            display: none;
         }
         
         .music-control.show {
@@ -352,12 +336,6 @@
         .music-control i {
             color: #e91e63;
             font-size: 24px;
-        }
-        
-        /* 确保其他内容在画布下面 */
-        #wrap {
-            position: relative;
-            z-index: 1;
         }
     </style>
 </head>
@@ -387,7 +365,7 @@
                 href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a
                 href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
         <div id="wrap">
-            <!-- 情书区域 - 初始隐藏 -->
+            <!-- 情书区域 -->
             <div id="text">
                 <div id="code">
                     <div class="main-title">一定会爱你</div>
@@ -411,41 +389,7 @@
                 </div>
             </div>
             
-            <!-- 爱情纪念册 - 初始隐藏，最后才显示 -->
-            <div id="dynamic-info">
-                <h3>❤ 我们的爱情纪念册 ❤</h3>
-                
-                <div class="romantic-date">
-                    <span class="heart-icon">❤</span>
-                    今天：<span id="current-date">2024年5月24日</span>
-                    <span class="heart-icon">❤</span>
-                </div>
-                
-                <div class="love-metric">
-                    <div class="metric-box">
-                        <span class="metric-label">在一起天数</span>
-                        <span class="metric-value" id="together-days">0</span>
-                        <span class="heart-icon">❤</span>
-                    </div>
-                    
-                    <div class="metric-box">
-                        <span class="metric-label">下个纪念日</span>
-                        <span class="metric-value" id="next-hundred">0</span>
-                        <span class="metric-label">天后</span>
-                    </div>
-                    
-                    <div class="metric-box">
-                        <span class="metric-label">爱情温度</span>
-                        <span class="metric-value">100°</span>
-                        <span class="heart-icon">♥</span>
-                    </div>
-                </div>
-                
-                <div class="love-note">
-                    每一分每一秒，爱你都在加深一分<br>
-                    从 <span id="start-date-display" style="color: #e91e63; font-weight: bold;">2024年5月24日</span> 开始，我们的故事永不结束
-                </div>
-            </div>
+            <!-- 注意：这里没有爱情纪念册！它会在动画结束后动态创建 -->
             
             <div id="clock-box">
                 <span class="romantic-text">彬彬</span> 
@@ -460,21 +404,18 @@
     <!-- 画布 - 用于大树生长动画 -->
     <canvas id="canvas" width="1100" height="680"></canvas>
 
-    <!-- 修复音频文件名称和加载方式 -->
+    <!-- 音频 -->
     <audio preload="auto" id="media" loop="loop">
         <source src="love.mp3" type="audio/mpeg">
         <source src="love.ogg" type="audio/ogg">
-        您的浏览器不支持音频播放
     </audio>
 
     <script>
         // 开始日期
         const startDate = new Date('2024-05-24');
         
-        // 动画状态控制
+        // 动画状态
         let animationStarted = false;
-        let treeAnimationCompleted = false;
-        let letterAnimationCompleted = false;
         
         // 音乐控制
         const audio = document.getElementById('media');
@@ -484,16 +425,14 @@
         // 初始化音乐
         audio.volume = 0.5;
         
-        // 音乐控制按钮点击事件
+        // 音乐控制
         musicControl.addEventListener('click', function() {
             if (audio.paused) {
                 audio.play();
                 musicControl.innerHTML = '<i>🎵</i>';
-                musicControl.style.background = 'rgba(255, 255, 255, 0.9)';
             } else {
                 audio.pause();
                 musicControl.innerHTML = '<i>🔇</i>';
-                musicControl.style.background = 'rgba(255, 255, 255, 0.7)';
             }
         });
         
@@ -511,12 +450,11 @@
                 heart.style.animationDelay = Math.random() * 15 + 's';
                 heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
                 heart.style.color = `rgba(255, ${Math.random() * 100 + 64}, ${Math.random() * 100 + 129}, 0.6)`;
-                
                 heartsContainer.appendChild(heart);
             }
         }
         
-        // 计算时间间隔的浪漫描述
+        // 计算时间间隔
         function calculateRomanticDuration() {
             const now = new Date();
             const diffTime = Math.abs(now - startDate);
@@ -553,52 +491,60 @@
             return nextHundred - togetherDays;
         }
         
-        // 更新日期显示
-        function updateCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-            const dateStr = now.toLocaleDateString('zh-CN', options);
-            document.getElementById('current-date').textContent = dateStr;
-        }
-        
-        // 显示开始日期
-        function displayStartDate() {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const startDateStr = startDate.toLocaleDateString('zh-CN', options);
-            document.getElementById('start-date-display').textContent = startDateStr;
-        }
-        
-        // 更新所有动态内容
-        function updateDynamicContent() {
-            document.getElementById('duration').textContent = calculateRomanticDuration();
-            document.getElementById('together-days').textContent = calculateTogetherDays();
-            document.getElementById('next-hundred').textContent = calculateNextHundredDays();
-            updateCurrentDate();
-        }
-        
-        // 显示情书
-        function showLoveLetter() {
-            const textElement = document.getElementById('text');
-            textElement.classList.add('show');
+        // 创建爱情纪念册 - 在动画完全结束后才调用
+        function createLoveAlbum() {
+            const wrap = document.getElementById('wrap');
+            const clockBox = document.getElementById('clock-box');
             
-            // 触发情书打字效果
-            $("#code").show().typewriter();
+            // 创建纪念册HTML
+            const albumHTML = `
+                <div class="love-album">
+                    <h3>❤ 我们的爱情纪念册 ❤</h3>
+                    
+                    <div class="romantic-date">
+                        <span class="heart-icon">❤</span>
+                        今天：<span id="current-date">${new Date().toLocaleDateString('zh-CN', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric', 
+                            weekday: 'long' 
+                        })}</span>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                    
+                    <div class="love-metric">
+                        <div class="metric-box">
+                            <span class="metric-label">在一起天数</span>
+                            <span class="metric-value">${calculateTogetherDays()}</span>
+                            <span class="heart-icon">❤</span>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <span class="metric-label">下个纪念日</span>
+                            <span class="metric-value">${calculateNextHundredDays()}</span>
+                            <span class="metric-label">天后</span>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <span class="metric-label">爱情温度</span>
+                            <span class="metric-value">100°</span>
+                            <span class="heart-icon">♥</span>
+                        </div>
+                    </div>
+                    
+                    <div class="love-note">
+                        每一分每一秒，爱你都在加深一分<br>
+                        从 <span style="color: #e91e63; font-weight: bold;">${startDate.toLocaleDateString('zh-CN', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}</span> 开始，我们的故事永不结束
+                    </div>
+                </div>
+            `;
             
-            // 标记情书动画完成
-            setTimeout(() => {
-                letterAnimationCompleted = true;
-                showLoveAlbum();
-            }, 8000); // 根据打字动画时间调整
-        }
-        
-        // 显示爱情纪念册
-        function showLoveAlbum() {
-            if (treeAnimationCompleted && letterAnimationCompleted) {
-                const dynamicInfo = document.getElementById('dynamic-info');
-                setTimeout(() => {
-                    dynamicInfo.classList.add('show');
-                }, 1000);
-            }
+            // 在时钟盒子之前插入纪念册
+            clockBox.insertAdjacentHTML('beforebegin', albumHTML);
         }
         
         // 开始体验
@@ -608,6 +554,7 @@
             
             const seedContainer = document.getElementById('seedContainer');
             const mainContent = document.getElementById('main');
+            const textElement = document.getElementById('text');
             
             // 淡出种子页面
             seedContainer.classList.add('hidden');
@@ -616,8 +563,6 @@
             if (!musicStarted) {
                 audio.play().then(() => {
                     musicStarted = true;
-                }).catch(error => {
-                    console.log('音频自动播放被阻止');
                 });
             }
             
@@ -631,12 +576,21 @@
                     musicControl.classList.add('show');
                 }, 2000);
                 
-                // 更新动态内容
-                updateDynamicContent();
-                displayStartDate();
+                // 更新情书中的时间
+                document.getElementById('duration').textContent = calculateRomanticDuration();
                 
                 // 开始大树生长动画
                 startTreeAnimation();
+                
+                // 3秒后显示情书（打字效果）
+                setTimeout(() => {
+                    textElement.classList.add('show');
+                    $("#code").show().typewriter();
+                    
+                    // 情书动画完成后（约10秒后），创建并显示爱情纪念册
+                    setTimeout(createLoveAlbum, 10000);
+                }, 3000);
+                
             }, 1000);
         }
         
@@ -644,31 +598,16 @@
         function startTreeAnimation() {
             if (window.initAnimation) {
                 window.initAnimation();
-                
-                // 假设大树动画需要8秒
-                setTimeout(() => {
-                    treeAnimationCompleted = true;
-                    
-                    // 大树动画完成后显示情书
-                    setTimeout(() => {
-                        showLoveLetter();
-                    }, 1000);
-                }, 8000);
             }
         }
         
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             createFloatingHearts();
-            
-            // 设置种子点击事件
             document.getElementById('seedContainer').addEventListener('click', startExperience);
-            
-            // 每分钟更新一次时间描述
-            setInterval(updateDynamicContent, 60 * 1000);
         });
 
-        // 原有的动画代码 - 修改为只在点击后触发
+        // 原有的动画代码
         (function () {
             var canvas = $('#canvas');
 
@@ -722,25 +661,7 @@
             var tree = new Tree(canvas[0], width, height, opts);
             var seed = tree.seed;
             var foot = tree.footer;
-            var hold = 1; // 初始为1，等待点击
-
-            // 点击种子开始生长
-            canvas.click(function (e) {
-                var offset = canvas.offset(), x, y;
-                x = e.pageX - offset.left;
-                y = e.pageY - offset.top;
-                if (seed.hover(x, y)) {
-                    hold = 0; // 开始生长
-                    canvas.unbind("click");
-                    canvas.unbind("mousemove");
-                    canvas.removeClass('hand');
-                }
-            }).mousemove(function (e) {
-                var offset = canvas.offset(), x, y;
-                x = e.pageX - offset.left;
-                y = e.pageY - offset.top;
-                canvas.toggleClass('hand', seed.hover(x, y));
-            });
+            var hold = 1;
 
             var seedAnimate = eval(Jscex.compile("async", function () {
                 seed.draw();
@@ -826,8 +747,7 @@
 
             // 将动画启动函数导出
             window.initAnimation = function() {
-                // 设置hold为0，立即开始动画
-                hold = 0;
+                hold = 0; // 立即开始动画
                 runAsync().start();
             };
         })();
