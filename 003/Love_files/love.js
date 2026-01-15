@@ -527,6 +527,12 @@
                 s.speed -= 1;
             }
         }
+        function createLoveAlbum() {
+    // 在动画完全结束后才创建纪念册
+        const albumHTML = `...纪念册HTML...`;
+    // 动态插入到DOM中
+        clockBox.insertAdjacentHTML('beforebegin', albumHTML);
+}
     }
 
     window.random = random;
