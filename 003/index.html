@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>❤给鹏鹏的情书❤</title>
+    <title>❤彬彬给鹏鹏的专属情书❤</title>
     <link rel="icon" type="image/x-icon" href="https://i.loli.net/2021/06/03/lFg2V4WUcmkB98G.png">
     <meta name="language" content="zh-CN">
-    <meta name="title" content="小李同学">
+    <meta name="title" content="彬彬的情书">
     <meta name="github" content="https://github.com/sun0225SUN/Awesome-Love-Code">
-    <meta name="describe" content="爱你鹏鹏">
+    <meta name="describe" content="彬彬爱鹏鹏，直到永远">
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
     <script type="text/javascript" src="./Love_files/jscex.min.js"></script>
@@ -18,10 +18,228 @@
     <script type="text/javascript" src="./Love_files/jscex-async-powerpack.min.js"></script>
     <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
-
+    <style>
+        /* 浪漫自定义样式 */
+        .romantic-text {
+            background: linear-gradient(45deg, #ff6b9d, #ff8e53, #ffd166, #06d6a0, #118ab2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            animation: rainbow 3s infinite alternate;
+        }
+        
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .duration-placeholder {
+            color: #ff4081;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff4081, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            padding: 0 5px;
+        }
+        
+        .duration-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff4081, transparent);
+            animation: pulseLine 2s infinite;
+        }
+        
+        @keyframes pulseLine {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        #dynamic-info {
+            text-align: center;
+            margin: 25px auto;
+            padding: 20px;
+            background: rgba(255, 240, 245, 0.95);
+            border-radius: 15px;
+            max-width: 650px;
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.25);
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        #dynamic-info::before {
+            content: '❤';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 40px;
+            color: rgba(255, 64, 129, 0.2);
+            transform: rotate(45deg);
+        }
+        
+        #dynamic-info h3 {
+            color: #e91e63;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        #dynamic-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e91e63, transparent);
+            border-radius: 2px;
+        }
+        
+        .love-metric {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .metric-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #ffc8dd;
+        }
+        
+        .metric-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.25);
+        }
+        
+        .metric-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e91e63;
+            margin: 10px 0;
+            display: block;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .heart-icon {
+            color: #ff4081;
+            font-size: 20px;
+            margin: 0 5px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .romantic-date {
+            font-size: 18px;
+            color: #333;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 200, 221, 0.3);
+            border-radius: 8px;
+            border-left: 4px solid #ff4081;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 64, 129, 0.1);
+            font-size: 20px;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .love-note {
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px dashed #ffc8dd;
+        }
+        
+        /* 特殊日子提醒 */
+        .special-day {
+            animation: glow 2s infinite alternate;
+            color: #ff4081 !important;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #ff4081; }
+            to { text-shadow: 0 0 20px #ff4081, 0 0 30px #ff4081; }
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .love-metric {
+                flex-direction: column;
+            }
+            
+            .metric-box {
+                min-width: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- 浮动爱心背景 -->
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
     <div id="main">
         <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a
                 href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a
@@ -29,39 +247,219 @@
         <div id="wrap">
             <div id="text">
                 <div id="code">
-                    <span class="say">一定要爱你</span><br><br>
-                    <span class="say">我知道你是一个天真善良温柔的男孩</span><br>
-                    <span class="say">真的希望自己能够配上你</span><br>
-                    <span class="say">如果你能给我机会让我好好的爱你</span><br>
-                    <span class="say">真的只想真心真意对你说</span><br>
+                    <span class="say romantic-text">一定会爱你</span><br><br>
+                    <span class="say">我知道，你是一个天真、善良又温柔的男孩</span><br>
+                    <span class="say">这段和你并肩走过的<span id="duration" class="duration-placeholder">[加载中...]</span>时光，是我生命里最明亮的章节</span><br>
+                    <span class="say">如果你愿意，让我牵紧你的手，在属于我们的故事里</span><br>
+                    <span class="say">好好地、完整地去爱一次</span><br>
                     <br>
-                    <span class="say">我爱你一定爱到花都开了 鸟儿把歌唱</span><br>
-                    <span class="say">爱到牛郎织女为我们点头</span><br>
-                    <span class="say">爱到花儿绽放鸟儿成群 把我们环绕</span><br>
-                    <span class="say">爱到每道彩虹映出你的美</span><br>
+                    <span class="say">我爱你，爱到昼夜在寻常巷陌里为我们见证</span><br>
+                    <span class="say">爱到四季流转都成为我们相守的序章</span><br>
+                    <span class="say">爱到每一缕风经过，都认得我俩并肩的身影</span><br>
+                    <span class="say">爱到世界安静时，只听得到彼此的心跳</span><br>
                     <br>
-                    <span class="say">我爱你一定爱到海枯石烂 永远不后悔</span><br>
-                    <span class="say">爱到来生来世也会说无悔</span><br>
-                    <span class="say">就把这首动听的歌唱给心爱的男孩</span><br>
-                    <span class="say">真的希望你能给我个机会</span><br>
-                    <span class="say">让我去爱你</span><br>
+                    <span class="say">我爱你，爱到时间失去刻度，未来不必分明</span><br>
+                    <span class="say">爱到无论重来多少次，选择依然会是你</span><br>
+                    <span class="say">就把这些话说给我最亲爱的男孩听</span><br>
+                    <span class="say">愿以真心，换你我往后朝朝暮暮</span><br>
+                    <span class="say">让我好好爱你，行吗</span><br>
                     <br>
-                    <span class="say"><span class="space"></span> -- 爱你的彬彬。</span>
+                    <span class="say"><span class="space"></span> -- 永远爱你的彬彬。</span>
                 </div>
             </div>
+            
+            <!-- 浪漫动态信息区域 -->
+            <div id="dynamic-info">
+                <h3>❤ 我们的爱情纪念册 ❤</h3>
+                
+                <div class="romantic-date">
+                    <span class="heart-icon">❤</span>
+                    今天：<span id="current-date">2024年5月24日</span>
+                    <span class="heart-icon">❤</span>
+                </div>
+                
+                <div class="love-metric">
+                    <div class="metric-box">
+                        <span class="metric-label">在一起天数</span>
+                        <span class="metric-value" id="together-days">0</span>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                    
+                    <div class="metric-box">
+                        <span class="metric-label">下个纪念日</span>
+                        <span class="metric-value" id="next-hundred">0</span>
+                        <span class="metric-label">天后</span>
+                    </div>
+                    
+                    <div class="metric-box">
+                        <span class="metric-label">爱情温度</span>
+                        <span class="metric-value">100°</span>
+                        <span class="heart-icon">♥</span>
+                    </div>
+                </div>
+                
+                <div class="love-note">
+                    每一分每一秒，爱你都在加深一分<br>
+                    从<span id="start-date-display">2024年5月24日</span>开始，我们的故事永不结束
+                </div>
+            </div>
+            
             <div id="clock-box">
-                <a href="https://sunguoqi.com" target="_blank">彬彬</a> 和 <a href="https://sunguoqi.com"
-                    target="_blank">鹏鹏</a> 在一起的
+                <a href="javascript:void(0)" class="romantic-text">彬彬</a> 
+                <span class="heart-icon">❤</span> 和 
+                <span class="heart-icon">❤</span>
+                <a href="javascript:void(0)" class="romantic-text">鹏鹏</a> 的爱情历程
                 <div id="clock"></div>
             </div>
             <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
-
     </div>
 
-    <audio preload="auto" autoplay="" id="media" src="恋人-李荣浩.mp3" autoplay preload loop="loop"></audio>
+    <!-- 修复音频文件名称 -->
+    <audio preload="auto" autoplay="" id="media" src="love.mp3" autoplay preload loop="loop"></audio>
 
     <script>
+        // 开始日期（已在原代码中设置为2024-05-24）
+        const startDate = new Date('2024-05-24');
+        
+        // 创建浮动爱心
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floating-hearts');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                heart.style.color = `rgba(255, ${Math.random() * 100 + 64}, ${Math.random() * 100 + 129}, ${Math.random() * 0.3 + 0.1})`;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // 计算时间间隔的浪漫描述
+        function calculateRomanticDuration() {
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            // 浪漫描述
+            if (diffDays === 0) {
+                return "刚刚开始的美好";
+            } else if (diffDays === 1) {
+                return "甜蜜的第一天";
+            } else if (diffDays < 7) {
+                return diffDays + "个甜蜜日夜";
+            } else if (diffDays < 30) {
+                const weeks = Math.floor(diffDays / 7);
+                return weeks + "周的美好时光";
+            } else if (diffDays < 365) {
+                const months = Math.floor(diffDays / 30);
+                const days = diffDays % 30;
+                return months + "个月" + (days > 0 ? days + "天" : "") + "的陪伴";
+            } else {
+                const years = Math.floor(diffDays / 365);
+                const months = Math.floor((diffDays % 365) / 30);
+                return years + "年" + (months > 0 ? months + "个月" : "") + "的永恒之约";
+            }
+        }
+        
+        // 计算在一起天数
+        function calculateTogetherDays() {
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        }
+        
+        // 计算距离下一个百天纪念日
+        function calculateNextHundredDays() {
+            const togetherDays = calculateTogetherDays();
+            const nextHundred = Math.ceil((togetherDays + 1) / 100) * 100;
+            return nextHundred - togetherDays;
+        }
+        
+        // 检查是否是特殊日子
+        function isSpecialDay() {
+            const togetherDays = calculateTogetherDays();
+            const now = new Date();
+            
+            // 检查是否是整数百天
+            if (togetherDays % 100 === 0 && togetherDays > 0) {
+                return "今天是我们第" + togetherDays + "天纪念日！❤";
+            }
+            
+            // 检查是否是周年纪念
+            if (togetherDays % 365 === 0 && togetherDays > 0) {
+                return "今天是我们" + (togetherDays / 365) + "周年纪念！❤";
+            }
+            
+            // 检查是否是31天（每月纪念）
+            if (togetherDays % 30 === 1 && togetherDays > 0) {
+                return "今天是我们第" + Math.floor(togetherDays / 30) + "个月纪念！";
+            }
+            
+            // 检查是否是认识的整数月
+            if (togetherDays % 30 === 0 && togetherDays > 0) {
+                return "今天正好是我们相识" + (togetherDays / 30) + "个月！";
+            }
+            
+            return null;
+        }
+        
+        // 更新日期显示
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const dateStr = now.toLocaleDateString('zh-CN', options);
+            document.getElementById('current-date').textContent = dateStr;
+            
+            // 添加特殊日子效果
+            const specialDay = isSpecialDay();
+            if (specialDay) {
+                const currentDateEl = document.getElementById('current-date');
+                currentDateEl.innerHTML = dateStr + '<br><span class="special-day">' + specialDay + '</span>';
+            }
+        }
+        
+        // 显示开始日期
+        function displayStartDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const startDateStr = startDate.toLocaleDateString('zh-CN', options);
+            document.getElementById('start-date-display').textContent = startDateStr;
+        }
+        
+        // 更新所有动态内容
+        function updateDynamicContent() {
+            document.getElementById('duration').textContent = calculateRomanticDuration();
+            document.getElementById('together-days').textContent = calculateTogetherDays();
+            document.getElementById('next-hundred').textContent = calculateNextHundredDays();
+            updateCurrentDate();
+            
+            // 检查特殊日子并添加动画
+            const togetherDays = calculateTogetherDays();
+            const daysElement = document.getElementById('together-days');
+            if (togetherDays % 100 === 0 || togetherDays % 365 === 0 || togetherDays % 30 === 0) {
+                daysElement.classList.add('special-day');
+            } else {
+                daysElement.classList.remove('special-day');
+            }
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            displayStartDate();
+            updateDynamicContent();
+            
+            // 每分钟更新一次时间描述（更频繁地检查特殊时刻）
+            setInterval(updateDynamicContent, 60 * 1000);
+        });
+
         (function () {
             var canvas = $('#canvas');
 
@@ -200,6 +598,11 @@
 
                 $("#code").show().typewriter();
                 $("#clock-box").fadeIn(500);
+                $("#dynamic-info").fadeIn(500);
+                
+                // 更新动态内容
+                updateDynamicContent();
+                
                 while (true) {
                     timeElapse(together);
                     $await(Jscex.Async.sleep(1000));
@@ -220,9 +623,5 @@
             runAsync().start();
         })();
     </script>
-
-
-
 </body>
-
 </html>
