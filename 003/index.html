@@ -58,7 +58,7 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
-            /* 初始隐藏，在情书显示后才出现 */
+            /* 初始隐藏，在所有动画完成后才显示 */
             display: none;
             opacity: 0;
             transform: translateY(20px);
@@ -220,8 +220,8 @@
             to { box-shadow: 0 0 15px rgba(255, 64, 129, 0.8); }
         }
         
-        /* 点击交互样式 */
-        .click-to-start {
+        /* 点击种子样式 */
+        .seed-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -233,15 +233,15 @@
             align-items: center;
             z-index: 9999;
             cursor: pointer;
+        }
+        
+        .seed-container.hidden {
+            opacity: 0;
+            pointer-events: none;
             transition: opacity 1s ease;
         }
         
-        .click-to-start.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .click-message {
+        .seed-message {
             text-align: center;
             color: white;
             padding: 40px;
@@ -251,13 +251,13 @@
             animation: pulse 2s infinite;
         }
         
-        .click-message h2 {
+        .seed-message h2 {
             font-size: 36px;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
-        .click-message p {
+        .seed-message p {
             font-size: 20px;
             margin: 10px 0;
         }
@@ -272,6 +272,23 @@
             min-height: 400px;
             padding: 20px;
             margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        
+        #text.show {
+            opacity: 1;
+        }
+        
+        /* 画布样式 */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            pointer-events: none;
         }
         
         /* 响应式调整 */
@@ -292,11 +309,11 @@
                 padding: 15px;
             }
             
-            .click-message h2 {
+            .seed-message h2 {
                 font-size: 28px;
             }
             
-            .click-message p {
+            .seed-message p {
                 font-size: 16px;
             }
             
@@ -322,26 +339,35 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             border: 2px solid #ffc8dd;
-            display: none; /* 初始隐藏 */
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
         
         .music-control.show {
             display: flex;
+            opacity: 1;
         }
         
         .music-control i {
             color: #e91e63;
             font-size: 24px;
         }
+        
+        /* 确保其他内容在画布下面 */
+        #wrap {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 
 <body>
-    <!-- 点击开始页面 -->
-    <div class="click-to-start" id="clickToStart">
-        <div class="click-message">
-            <h2>❤ 给鹏鹏的专属情书 ❤</h2>
-            <p>点击任意地方，开启我们的爱情故事</p>
+    <!-- 点击种子页面 - 这是最初的页面 -->
+    <div class="seed-container" id="seedContainer">
+        <div class="seed-message">
+            <h2>❤ 爱的种子 ❤</h2>
+            <p>点击这颗种子，让它长成我们的爱情树</p>
             <p>彬彬 ❤ 鹏鹏</p>
             <p>从 2024年5月24日 开始</p>
         </div>
@@ -355,11 +381,13 @@
         <i>🎵</i>
     </div>
     
-    <div id="main" style="display: none;">
+    <!-- 主内容区域 - 初始完全隐藏 -->
+    <div id="main" style="display: none; opacity: 0;">
         <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a
                 href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a
                 href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
         <div id="wrap">
+            <!-- 情书区域 - 初始隐藏 -->
             <div id="text">
                 <div id="code">
                     <div class="main-title">一定会爱你</div>
@@ -383,7 +411,7 @@
                 </div>
             </div>
             
-            <!-- 浪漫动态信息区域 - 初始隐藏，在情书显示后才出现 -->
+            <!-- 爱情纪念册 - 初始隐藏，最后才显示 -->
             <div id="dynamic-info">
                 <h3>❤ 我们的爱情纪念册 ❤</h3>
                 
@@ -426,9 +454,11 @@
                 <span class="romantic-text">鹏鹏</span> 的爱情历程
                 <div id="clock"></div>
             </div>
-            <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
     </div>
+    
+    <!-- 画布 - 用于大树生长动画 -->
+    <canvas id="canvas" width="1100" height="680"></canvas>
 
     <!-- 修复音频文件名称和加载方式 -->
     <audio preload="auto" id="media" loop="loop">
@@ -441,13 +471,18 @@
         // 开始日期
         const startDate = new Date('2024-05-24');
         
+        // 动画状态控制
+        let animationStarted = false;
+        let treeAnimationCompleted = false;
+        let letterAnimationCompleted = false;
+        
         // 音乐控制
         const audio = document.getElementById('media');
         const musicControl = document.getElementById('musicControl');
         let musicStarted = false;
         
         // 初始化音乐
-        audio.volume = 0.5; // 设置音量
+        audio.volume = 0.5;
         
         // 音乐控制按钮点击事件
         musicControl.addEventListener('click', function() {
@@ -487,25 +522,21 @@
             const diffTime = Math.abs(now - startDate);
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             
-            // 浪漫描述
-            if (diffDays === 0) {
-                return "刚刚开始的美好";
-            } else if (diffDays === 1) {
-                return "甜蜜的第一天";
-            } else if (diffDays < 7) {
-                return diffDays + "个甜蜜日夜";
-            } else if (diffDays < 30) {
+            if (diffDays === 0) return "刚刚开始的美好";
+            if (diffDays === 1) return "甜蜜的第一天";
+            if (diffDays < 7) return diffDays + "个甜蜜日夜";
+            if (diffDays < 30) {
                 const weeks = Math.floor(diffDays / 7);
                 return weeks + "周的美好时光";
-            } else if (diffDays < 365) {
+            }
+            if (diffDays < 365) {
                 const months = Math.floor(diffDays / 30);
                 const days = diffDays % 30;
                 return months + "个月" + (days > 0 ? days + "天" : "") + "的陪伴";
-            } else {
-                const years = Math.floor(diffDays / 365);
-                const months = Math.floor((diffDays % 365) / 30);
-                return years + "年" + (months > 0 ? months + "个月" : "") + "的永恒之约";
             }
+            const years = Math.floor(diffDays / 365);
+            const months = Math.floor((diffDays % 365) / 30);
+            return years + "年" + (months > 0 ? months + "个月" : "") + "的永恒之约";
         }
         
         // 计算在一起天数
@@ -522,41 +553,12 @@
             return nextHundred - togetherDays;
         }
         
-        // 检查是否是特殊日子
-        function isSpecialDay() {
-            const togetherDays = calculateTogetherDays();
-            
-            // 检查是否是整数百天
-            if (togetherDays % 100 === 0 && togetherDays > 0) {
-                return "今天是我们第" + togetherDays + "天纪念日！❤";
-            }
-            
-            // 检查是否是周年纪念
-            if (togetherDays % 365 === 0 && togetherDays > 0) {
-                return "今天是我们" + (togetherDays / 365) + "周年纪念！❤";
-            }
-            
-            // 检查是否是认识的整数月
-            if (togetherDays % 30 === 0 && togetherDays > 0) {
-                return "今天正好是我们相识" + (togetherDays / 30) + "个月！";
-            }
-            
-            return null;
-        }
-        
         // 更新日期显示
         function updateCurrentDate() {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
             const dateStr = now.toLocaleDateString('zh-CN', options);
             document.getElementById('current-date').textContent = dateStr;
-            
-            // 添加特殊日子效果
-            const specialDay = isSpecialDay();
-            if (specialDay) {
-                const currentDateEl = document.getElementById('current-date');
-                currentDateEl.innerHTML = dateStr + '<br><span class="special-day">' + specialDay + '</span>';
-            }
         }
         
         // 显示开始日期
@@ -572,77 +574,101 @@
             document.getElementById('together-days').textContent = calculateTogetherDays();
             document.getElementById('next-hundred').textContent = calculateNextHundredDays();
             updateCurrentDate();
+        }
+        
+        // 显示情书
+        function showLoveLetter() {
+            const textElement = document.getElementById('text');
+            textElement.classList.add('show');
             
-            // 检查特殊日子并添加动画
-            const togetherDays = calculateTogetherDays();
-            const daysElement = document.getElementById('together-days');
-            if (togetherDays % 100 === 0 || togetherDays % 365 === 0 || togetherDays % 30 === 0) {
-                daysElement.classList.add('special-day');
-            } else {
-                daysElement.classList.remove('special-day');
+            // 触发情书打字效果
+            $("#code").show().typewriter();
+            
+            // 标记情书动画完成
+            setTimeout(() => {
+                letterAnimationCompleted = true;
+                showLoveAlbum();
+            }, 8000); // 根据打字动画时间调整
+        }
+        
+        // 显示爱情纪念册
+        function showLoveAlbum() {
+            if (treeAnimationCompleted && letterAnimationCompleted) {
+                const dynamicInfo = document.getElementById('dynamic-info');
+                setTimeout(() => {
+                    dynamicInfo.classList.add('show');
+                }, 1000);
             }
         }
         
-        // 显示爱情纪念册（在情书显示后延迟显示）
-        function showLoveAlbum() {
-            const dynamicInfo = document.getElementById('dynamic-info');
-            setTimeout(() => {
-                dynamicInfo.classList.add('show');
-            }, 3000); // 情书显示3秒后才显示纪念册
-        }
-        
-        // 点击开始函数
+        // 开始体验
         function startExperience() {
-            const clickToStart = document.getElementById('clickToStart');
+            if (animationStarted) return;
+            animationStarted = true;
+            
+            const seedContainer = document.getElementById('seedContainer');
             const mainContent = document.getElementById('main');
             
-            // 淡出点击页面
-            clickToStart.classList.add('hidden');
+            // 淡出种子页面
+            seedContainer.classList.add('hidden');
             
-            // 1秒后显示主内容
+            // 开始音乐
+            if (!musicStarted) {
+                audio.play().then(() => {
+                    musicStarted = true;
+                }).catch(error => {
+                    console.log('音频自动播放被阻止');
+                });
+            }
+            
+            // 1秒后开始动画
             setTimeout(() => {
-                clickToStart.style.display = 'none';
+                seedContainer.style.display = 'none';
                 mainContent.style.display = 'block';
                 
-                // 开始音乐（用户交互后）
-                if (!musicStarted) {
-                    audio.play().then(() => {
-                        musicStarted = true;
-                        musicControl.classList.add('show');
-                    }).catch(error => {
-                        console.log('音频自动播放被阻止，需要用户交互');
-                        musicControl.classList.add('show');
-                    });
-                }
+                // 显示音乐控制按钮
+                setTimeout(() => {
+                    musicControl.classList.add('show');
+                }, 2000);
                 
-                // 初始化动画
-                if (window.initAnimation) {
-                    window.initAnimation();
-                }
-                
-                // 更新动态内容但不立即显示纪念册
+                // 更新动态内容
                 updateDynamicContent();
+                displayStartDate();
                 
-                // 等待情书动画完成后再显示纪念册
-                setTimeout(showLoveAlbum, 5000);
-                
+                // 开始大树生长动画
+                startTreeAnimation();
             }, 1000);
+        }
+        
+        // 开始大树生长动画
+        function startTreeAnimation() {
+            if (window.initAnimation) {
+                window.initAnimation();
+                
+                // 假设大树动画需要8秒
+                setTimeout(() => {
+                    treeAnimationCompleted = true;
+                    
+                    // 大树动画完成后显示情书
+                    setTimeout(() => {
+                        showLoveLetter();
+                    }, 1000);
+                }, 8000);
+            }
         }
         
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             createFloatingHearts();
-            displayStartDate();
-            updateDynamicContent();
             
-            // 设置点击事件
-            document.getElementById('clickToStart').addEventListener('click', startExperience);
+            // 设置种子点击事件
+            document.getElementById('seedContainer').addEventListener('click', startExperience);
             
             // 每分钟更新一次时间描述
             setInterval(updateDynamicContent, 60 * 1000);
         });
 
-        // 原有的动画代码
+        // 原有的动画代码 - 修改为只在点击后触发
         (function () {
             var canvas = $('#canvas');
 
@@ -696,14 +722,15 @@
             var tree = new Tree(canvas[0], width, height, opts);
             var seed = tree.seed;
             var foot = tree.footer;
-            var hold = 1;
+            var hold = 1; // 初始为1，等待点击
 
+            // 点击种子开始生长
             canvas.click(function (e) {
                 var offset = canvas.offset(), x, y;
                 x = e.pageX - offset.left;
                 y = e.pageY - offset.top;
                 if (seed.hover(x, y)) {
-                    hold = 0;
+                    hold = 0; // 开始生长
                     canvas.unbind("click");
                     canvas.unbind("mousemove");
                     canvas.removeClass('hand');
@@ -778,12 +805,7 @@
                 together.setSeconds(0);
                 together.setMilliseconds(0);
 
-                $("#code").show().typewriter();
                 $("#clock-box").fadeIn(500);
-                
-                // 注意：这里不显示dynamic-info
-                
-                updateDynamicContent();
                 
                 while (true) {
                     timeElapse(together);
@@ -802,8 +824,10 @@
                 $await(jumpAnimate());
             }));
 
-            // 将动画启动函数导出，以便在点击后调用
+            // 将动画启动函数导出
             window.initAnimation = function() {
+                // 设置hold为0，立即开始动画
+                hold = 0;
                 runAsync().start();
             };
         })();
