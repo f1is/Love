@@ -19,88 +19,65 @@
     <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
     <style>
-        /* 浪漫自定义样式 */
+        /* 浪漫自定义样式 - 优化版 */
         .romantic-text {
-            background: linear-gradient(45deg, #ff6b9d, #ff8e53, #ffd166, #06d6a0, #118ab2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #e91e63;
             font-weight: bold;
-            animation: rainbow 3s infinite alternate;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+        .main-title {
+            font-size: 28px;
+            color: #ff4081;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
         }
         
         .duration-placeholder {
             color: #ff4081;
             font-weight: bold;
-            background: linear-gradient(45deg, #ff4081, #e91e63);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             position: relative;
             display: inline-block;
             padding: 0 5px;
-        }
-        
-        .duration-placeholder::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff4081, transparent);
-            animation: pulseLine 2s infinite;
-        }
-        
-        @keyframes pulseLine {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            border-bottom: 2px solid #ffc8dd;
+            background: rgba(255, 200, 221, 0.2);
+            border-radius: 4px;
         }
         
         #dynamic-info {
             text-align: center;
             margin: 25px auto;
             padding: 20px;
-            background: rgba(255, 240, 245, 0.95);
+            background: rgba(255, 250, 252, 0.98);
             border-radius: 15px;
             max-width: 650px;
-            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.25);
-            border: 2px solid rgba(255, 182, 193, 0.5);
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.2);
+            border: 2px solid #ffc8dd;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
         }
         
-        #dynamic-info::before {
-            content: '❤';
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            font-size: 40px;
-            color: rgba(255, 64, 129, 0.2);
-            transform: rotate(45deg);
-        }
-        
         #dynamic-info h3 {
             color: #e91e63;
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: bold;
             position: relative;
             display: inline-block;
+            padding-bottom: 10px;
         }
         
         #dynamic-info h3::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 25%;
             width: 50%;
             height: 3px;
-            background: linear-gradient(90deg, transparent, #e91e63, transparent);
+            background: linear-gradient(90deg, #ffc8dd, #e91e63, #ffc8dd);
             border-radius: 2px;
         }
         
@@ -109,19 +86,20 @@
             justify-content: space-around;
             margin-top: 20px;
             flex-wrap: wrap;
+            gap: 15px;
         }
         
         .metric-box {
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 12px;
-            margin: 10px;
             flex: 1;
             min-width: 180px;
             box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
             transition: all 0.3s ease;
             position: relative;
-            border: 1px solid #ffc8dd;
+            border: 2px solid #ffc8dd;
+            text-align: center;
         }
         
         .metric-box:hover {
@@ -130,7 +108,7 @@
         }
         
         .metric-value {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             color: #e91e63;
             margin: 10px 0;
@@ -140,15 +118,16 @@
         
         .metric-label {
             font-size: 14px;
-            color: #888;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 500;
         }
         
         .heart-icon {
             color: #ff4081;
             font-size: 20px;
-            margin: 0 5px;
+            margin: 0 8px;
             animation: heartbeat 1.5s infinite;
         }
         
@@ -161,10 +140,11 @@
             font-size: 18px;
             color: #333;
             margin: 15px 0;
-            padding: 10px;
-            background: rgba(255, 200, 221, 0.3);
-            border-radius: 8px;
-            border-left: 4px solid #ff4081;
+            padding: 12px;
+            background: linear-gradient(135deg, #fff5f7, #ffe4e9);
+            border-radius: 10px;
+            border: 1px solid #ffc8dd;
+            font-weight: 500;
         }
         
         .floating-hearts {
@@ -175,12 +155,13 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
+            opacity: 0.6;
         }
         
         .floating-heart {
             position: absolute;
-            color: rgba(255, 64, 129, 0.1);
-            font-size: 20px;
+            color: #ffb6c1;
+            font-size: 18px;
             animation: float 15s infinite linear;
         }
         
@@ -190,10 +171,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.5;
+                opacity: 0.7;
             }
             90% {
-                opacity: 0.5;
+                opacity: 0.7;
             }
             100% {
                 transform: translateY(-100px) rotate(360deg);
@@ -202,52 +183,158 @@
         }
         
         .love-note {
-            margin-top: 15px;
+            margin-top: 20px;
             font-style: italic;
             color: #666;
-            font-size: 14px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            border: 1px dashed #ffc8dd;
+            font-size: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fff, #fff9fb);
+            border-radius: 10px;
+            border: 1px solid #ffc8dd;
+            line-height: 1.6;
         }
         
         /* 特殊日子提醒 */
         .special-day {
             animation: glow 2s infinite alternate;
             color: #ff4081 !important;
+            font-weight: bold;
+            padding: 3px 8px;
+            background: rgba(255, 64, 129, 0.1);
+            border-radius: 5px;
         }
         
         @keyframes glow {
-            from { text-shadow: 0 0 5px #ff4081; }
-            to { text-shadow: 0 0 20px #ff4081, 0 0 30px #ff4081; }
+            from { box-shadow: 0 0 5px rgba(255, 64, 129, 0.5); }
+            to { box-shadow: 0 0 15px rgba(255, 64, 129, 0.8); }
+        }
+        
+        /* 点击交互样式 */
+        .click-to-start {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffc8dd, #ffafcc, #ffc8dd);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            transition: opacity 1s ease;
+        }
+        
+        .click-to-start.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .click-message {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            background: rgba(233, 30, 99, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .click-message h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .click-message p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         /* 响应式调整 */
         @media (max-width: 768px) {
             .love-metric {
                 flex-direction: column;
+                align-items: center;
             }
             
             .metric-box {
+                width: 100%;
+                max-width: 300px;
                 min-width: auto;
             }
+            
+            #dynamic-info {
+                margin: 15px;
+                padding: 15px;
+            }
+            
+            .click-message h2 {
+                font-size: 28px;
+            }
+            
+            .click-message p {
+                font-size: 16px;
+            }
+        }
+        
+        /* 音乐播放器样式 */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid #ffc8dd;
+        }
+        
+        .music-control i {
+            color: #e91e63;
+            font-size: 24px;
         }
     </style>
 </head>
 
 <body>
+    <!-- 点击开始页面 -->
+    <div class="click-to-start" id="clickToStart">
+        <div class="click-message">
+            <h2>❤ 给鹏鹏的专属情书 ❤</h2>
+            <p>点击任意地方，开启我们的爱情故事</p>
+            <p>彬彬 ❤ 鹏鹏</p>
+            <p>从 2024年5月24日 开始</p>
+        </div>
+    </div>
+    
     <!-- 浮动爱心背景 -->
     <div class="floating-hearts" id="floating-hearts"></div>
     
-    <div id="main">
+    <!-- 音乐控制按钮 -->
+    <div class="music-control" id="musicControl">
+        <i>🎵</i>
+    </div>
+    
+    <div id="main" style="display: none;">
         <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a
                 href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a
                 href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
         <div id="wrap">
             <div id="text">
                 <div id="code">
-                    <span class="say romantic-text">一定会爱你</span><br><br>
+                    <div class="main-title">一定会爱你</div>
                     <span class="say">我知道，你是一个天真、善良又温柔的男孩</span><br>
                     <span class="say">这段和你并肩走过的<span id="duration" class="duration-placeholder">[加载中...]</span>时光，是我生命里最明亮的章节</span><br>
                     <span class="say">如果你愿意，让我牵紧你的手，在属于我们的故事里</span><br>
@@ -300,42 +387,67 @@
                 
                 <div class="love-note">
                     每一分每一秒，爱你都在加深一分<br>
-                    从<span id="start-date-display">2024年5月24日</span>开始，我们的故事永不结束
+                    从 <span id="start-date-display" style="color: #e91e63; font-weight: bold;">2024年5月24日</span> 开始，我们的故事永不结束
                 </div>
             </div>
             
             <div id="clock-box">
-                <a href="javascript:void(0)" class="romantic-text">彬彬</a> 
+                <span class="romantic-text">彬彬</span> 
                 <span class="heart-icon">❤</span> 和 
                 <span class="heart-icon">❤</span>
-                <a href="javascript:void(0)" class="romantic-text">鹏鹏</a> 的爱情历程
+                <span class="romantic-text">鹏鹏</span> 的爱情历程
                 <div id="clock"></div>
             </div>
             <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
     </div>
 
-    <!-- 修复音频文件名称 -->
-    <audio preload="auto" autoplay="" id="media" src="love.mp3" autoplay preload loop="loop"></audio>
+    <!-- 修复音频文件名称和加载方式 -->
+    <audio preload="auto" id="media" loop="loop">
+        <source src="love.mp3" type="audio/mpeg">
+        <source src="love.ogg" type="audio/ogg">
+        您的浏览器不支持音频播放
+    </audio>
 
     <script>
-        // 开始日期（已在原代码中设置为2024-05-24）
+        // 开始日期
         const startDate = new Date('2024-05-24');
+        
+        // 音乐控制
+        const audio = document.getElementById('media');
+        const musicControl = document.getElementById('musicControl');
+        let musicStarted = false;
+        
+        // 初始化音乐
+        audio.volume = 0.5; // 设置音量
+        
+        // 音乐控制按钮点击事件
+        musicControl.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                musicControl.innerHTML = '<i>🎵</i>';
+                musicControl.style.background = 'rgba(255, 255, 255, 0.9)';
+            } else {
+                audio.pause();
+                musicControl.innerHTML = '<i>🔇</i>';
+                musicControl.style.background = 'rgba(255, 255, 255, 0.7)';
+            }
+        });
         
         // 创建浮动爱心
         function createFloatingHearts() {
             const heartsContainer = document.getElementById('floating-hearts');
-            const heartCount = 30;
+            const heartCount = 20;
             
             for (let i = 0; i < heartCount; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'floating-heart';
                 heart.innerHTML = '❤';
                 heart.style.left = Math.random() * 100 + '%';
-                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                heart.style.fontSize = (Math.random() * 12 + 10) + 'px';
                 heart.style.animationDelay = Math.random() * 15 + 's';
                 heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                heart.style.color = `rgba(255, ${Math.random() * 100 + 64}, ${Math.random() * 100 + 129}, ${Math.random() * 0.3 + 0.1})`;
+                heart.style.color = `rgba(255, ${Math.random() * 100 + 64}, ${Math.random() * 100 + 129}, 0.6)`;
                 
                 heartsContainer.appendChild(heart);
             }
@@ -346,7 +458,6 @@
             const now = new Date();
             const diffTime = Math.abs(now - startDate);
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             
             // 浪漫描述
             if (diffDays === 0) {
@@ -386,7 +497,6 @@
         // 检查是否是特殊日子
         function isSpecialDay() {
             const togetherDays = calculateTogetherDays();
-            const now = new Date();
             
             // 检查是否是整数百天
             if (togetherDays % 100 === 0 && togetherDays > 0) {
@@ -396,11 +506,6 @@
             // 检查是否是周年纪念
             if (togetherDays % 365 === 0 && togetherDays > 0) {
                 return "今天是我们" + (togetherDays / 365) + "周年纪念！❤";
-            }
-            
-            // 检查是否是31天（每月纪念）
-            if (togetherDays % 30 === 1 && togetherDays > 0) {
-                return "今天是我们第" + Math.floor(togetherDays / 30) + "个月纪念！";
             }
             
             // 检查是否是认识的整数月
@@ -450,17 +555,61 @@
             }
         }
         
+        // 点击开始函数
+        function startExperience() {
+            const clickToStart = document.getElementById('clickToStart');
+            const mainContent = document.getElementById('main');
+            
+            // 淡出点击页面
+            clickToStart.classList.add('hidden');
+            
+            // 1秒后显示主内容
+            setTimeout(() => {
+                clickToStart.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                // 开始音乐（用户交互后）
+                if (!musicStarted) {
+                    audio.play().then(() => {
+                        musicStarted = true;
+                        musicControl.style.display = 'flex';
+                    }).catch(error => {
+                        console.log('音频自动播放被阻止，需要用户交互');
+                        musicControl.style.display = 'flex';
+                    });
+                }
+                
+                // 初始化动画
+                initAnimation();
+            }, 1000);
+        }
+        
+        // 初始化动画
+        function initAnimation() {
+            // 原有的动画初始化代码
+            // 这里会触发原有的动画效果
+            console.log('开始动画效果');
+        }
+        
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             createFloatingHearts();
             displayStartDate();
             updateDynamicContent();
             
-            // 每分钟更新一次时间描述（更频繁地检查特殊时刻）
+            // 设置点击事件
+            document.getElementById('clickToStart').addEventListener('click', startExperience);
+            
+            // 每分钟更新一次时间描述
             setInterval(updateDynamicContent, 60 * 1000);
         });
 
+        // 原有的动画代码
         (function () {
+            // 这里保留原有的动画逻辑...
+            // 由于代码很长，我保持原有的动画逻辑不变
+            // 只需要确保它在startExperience函数中被正确调用
+            
             var canvas = $('#canvas');
 
             if (!canvas[0].getContext) {
@@ -571,7 +720,6 @@
                 foot.draw();
                 tree.snapshot("p2", 500, 0, 610, 680);
 
-                // 会有闪烁不得意这样做, (＞﹏＜)
                 canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
                 canvas.css("background", "#ffc0cb");
                 $await(Jscex.Async.sleep(300));
@@ -600,7 +748,6 @@
                 $("#clock-box").fadeIn(500);
                 $("#dynamic-info").fadeIn(500);
                 
-                // 更新动态内容
                 updateDynamicContent();
                 
                 while (true) {
@@ -620,7 +767,10 @@
                 $await(jumpAnimate());
             }));
 
-            runAsync().start();
+            // 将动画启动函数导出，以便在点击后调用
+            window.initAnimation = function() {
+                runAsync().start();
+            };
         })();
     </script>
 </body>
