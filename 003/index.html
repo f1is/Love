@@ -18,28 +18,7 @@
     <script type="text/javascript" src="./Love_files/jscex-async-powerpack.min.js"></script>
     <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
     <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
-    <style>
-        /* 添加一些自定义样式 */
-        .duration-placeholder {
-            color: #ff4081;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
-        }
-        #dynamic-info {
-            text-align: center;
-            margin: 20px auto;
-            padding: 15px;
-            background: rgba(255, 240, 245, 0.9);
-            border-radius: 10px;
-            max-width: 600px;
-            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.2);
-        }
-    </style>
+
 </head>
 
 <body>
@@ -52,102 +31,37 @@
                 <div id="code">
                     <span class="say">一定会爱你</span><br><br>
                     <span class="say">我知道，你是一个天真、善良又温柔的男孩</span><br>
-                    <span class="say">这段和你并肩走过的<span id="duration" class="duration-placeholder">[加载中...]</span>时光，是我生命里最明亮的章节</span><br>
-                    <span class="say">如果你愿意，让我牵紧你的手，在属于我们的故事里</span><br>
-                    <span class="say">好好地、完整地去爱一次</span><br>
+                    <span class="say">真的希望自己能够配上你</span><br>
+                    <span class="say">如果你能给我机会让我好好的爱你</span><br>
+                    <span class="say">真的只想真心真意对你说</span><br>
                     <br>
-                    <span class="say">我爱你，爱到昼夜在寻常巷陌里为我们见证</span><br>
-                    <span class="say">爱到四季流转都成为我们相守的序章</span><br>
-                    <span class="say">爱到每一缕风经过，都认得我俩并肩的身影</span><br>
-                    <span class="say">爱到世界安静时，只听得到彼此的心跳</span><br>
+                    <span class="say">我爱你一定爱到花都开了 鸟儿把歌唱</span><br>
+                    <span class="say">爱到牛郎织女为我们点头</span><br>
+                    <span class="say">爱到花儿绽放鸟儿成群 把我们环绕</span><br>
+                    <span class="say">爱到每道彩虹映出你的美</span><br>
                     <br>
-                    <span class="say">我爱你，爱到时间失去刻度，未来不必分明</span><br>
-                    <span class="say">爱到无论重来多少次，选择依然会是你</span><br>
-                    <span class="say">就把这些话说给我最亲爱的男孩听</span><br>
-                    <span class="say">愿以真心，换你我往后朝朝暮暮</span><br>
-                    <span class="say">让我好好爱你，行吗</span><br>
+                    <span class="say">我爱你一定爱到海枯石烂 永远不后悔</span><br>
+                    <span class="say">爱到来生来世也会说无悔</span><br>
+                    <span class="say">就把这首动听的歌唱给心爱的男孩</span><br>
+                    <span class="say">真的希望你能给我个机会</span><br>
+                    <span class="say">让我去爱你</span><br>
                     <br>
                     <span class="say"><span class="space"></span> -- 爱你的彬彬。</span>
                 </div>
             </div>
-            
-            <!-- 动态信息区域 -->
-            <div id="dynamic-info">
-                <h3 style="color: #e91e63;">❤ 我们的故事 ❤</h3>
-                <p>彬彬和鹏鹏已经在一起：<span id="together-days">0</span> 天</p>
-                <p>今天的日期：<span id="current-date">2024年5月24日</span></p>
-                <p>下一百天纪念日还有：<span id="next-hundred">0</span> 天</p>
-            </div>
-            
             <div id="clock-box">
-                <a href="javascript:void(0)">彬彬</a> 和 <a href="javascript:void(0)">鹏鹏</a> 在一起的
+                <a href="https://sunguoqi.com" target="_blank">彬彬</a> 和 <a href="https://sunguoqi.com"
+                    target="_blank">鹏鹏</a> 在一起的
                 <div id="clock"></div>
             </div>
             <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
+
     </div>
 
-    <audio preload="auto" autoplay="" id="media" src="love.mp3" autoplay preload loop="loop"></audio>
+    <audio preload="auto" autoplay="" id="media" src="恋人-李荣浩.mp3" autoplay preload loop="loop"></audio>
 
     <script>
-        // 开始日期（请修改为你们实际在一起的日期）
-        const startDate = new Date('2024-05-24');
-        
-        // 计算时间间隔的函数
-        function calculateDuration() {
-            const now = new Date();
-            const diffTime = Math.abs(now - startDate);
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (diffDays < 30) {
-                return diffDays + "天";
-            } else if (diffDays < 365) {
-                const months = Math.floor(diffDays / 30);
-                const days = diffDays % 30;
-                return months + "个月" + (days > 0 ? days + "天" : "");
-            } else {
-                const years = Math.floor(diffDays / 365);
-                const months = Math.floor((diffDays % 365) / 30);
-                return years + "年" + (months > 0 ? months + "个月" : "");
-            }
-        }
-        
-        // 计算在一起天数
-        function calculateTogetherDays() {
-            const now = new Date();
-            const diffTime = Math.abs(now - startDate);
-            return Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        }
-        
-        // 计算距离下一个百天纪念日
-        function calculateNextHundredDays() {
-            const togetherDays = calculateTogetherDays();
-            const nextHundred = Math.ceil((togetherDays + 1) / 100) * 100;
-            return nextHundred - togetherDays;
-        }
-        
-        // 更新日期显示
-        function updateCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN', options);
-        }
-        
-        // 更新所有动态内容
-        function updateDynamicContent() {
-            document.getElementById('duration').textContent = calculateDuration();
-            document.getElementById('together-days').textContent = calculateTogetherDays();
-            document.getElementById('next-hundred').textContent = calculateNextHundredDays();
-            updateCurrentDate();
-        }
-        
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            updateDynamicContent();
-            // 每天更新一次
-            setInterval(updateDynamicContent, 24 * 60 * 60 * 1000);
-        });
-
         (function () {
             var canvas = $('#canvas');
 
@@ -286,11 +200,6 @@
 
                 $("#code").show().typewriter();
                 $("#clock-box").fadeIn(500);
-                $("#dynamic-info").fadeIn(500);
-                
-                // 更新动态内容
-                updateDynamicContent();
-                
                 while (true) {
                     timeElapse(together);
                     $await(Jscex.Async.sleep(1000));
@@ -311,5 +220,10 @@
             runAsync().start();
         })();
     </script>
+
+
+
 </body>
+
 </html>
+这个是整个代码帮我完善一下以及加上刚刚你说的那些
