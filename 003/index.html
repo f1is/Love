@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>❤给鹏鹏的情书❤</title>
+    <title>❤彬彬给鹏鹏的专属情书❤</title>
     <link rel="icon" type="image/x-icon" href="https://i.loli.net/2021/06/03/lFg2V4WUcmkB98G.png">
     <meta name="language" content="zh-CN">
-    <meta name="title" content="小李同学">
+    <meta name="title" content="彬彬的情书">
     <meta name="github" content="https://github.com/sun0225SUN/Awesome-Love-Code">
-    <meta name="describe" content="爱你鹏鹏">
+    <meta name="describe" content="彬彬爱鹏鹏，直到永远">
     <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
     <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
     <script type="text/javascript" src="./Love_files/jscex.min.js"></script>
@@ -17,40 +17,352 @@
     <script type="text/javascript" src="./Love_files/jscex-async.min.js"></script>
     <script type="text/javascript" src="./Love_files/jscex-async-powerpack.min.js"></script>
     <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
+    <!-- love.js 的内容将被直接整合到页面中 -->
+    
     <style>
-        /* 添加一些自定义样式 */
+        /* 所有之前的CSS样式保持不变 */
+        .romantic-text {
+            color: #e91e63;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .main-title {
+            font-size: 28px;
+            color: #ff4081;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
         .duration-placeholder {
             color: #ff4081;
             font-weight: bold;
+            position: relative;
+            display: inline-block;
+            padding: 0 5px;
+            border-bottom: 2px solid #ffc8dd;
+            background: rgba(255, 200, 221, 0.2);
+            border-radius: 4px;
+        }
+        
+        .love-album {
+            text-align: center;
+            margin: 25px auto;
+            padding: 20px;
+            background: rgba(255, 250, 252, 0.98);
+            border-radius: 15px;
+            max-width: 650px;
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.2);
+            border: 2px solid #ffc8dd;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 1s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .love-album h3 {
+            color: #e91e63;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .love-album h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, #ffc8dd, #e91e63, #ffc8dd);
+            border-radius: 2px;
+        }
+        
+        .love-metric {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .metric-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid #ffc8dd;
+            text-align: center;
+        }
+        
+        .metric-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.25);
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e91e63;
+            margin: 10px 0;
+            display: block;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .heart-icon {
+            color: #ff4081;
+            font-size: 20px;
+            margin: 0 8px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .romantic-date {
+            font-size: 18px;
+            color: #333;
+            margin: 15px 0;
+            padding: 12px;
+            background: linear-gradient(135deg, #fff5f7, #ffe4e9);
+            border-radius: 10px;
+            border: 1px solid #ffc8dd;
+            font-weight: 500;
+        }
+        
+        .love-note {
+            margin-top: 20px;
+            font-style: italic;
+            color: #666;
+            font-size: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fff, #fff9fb);
+            border-radius: 10px;
+            border: 1px solid #ffc8dd;
+            line-height: 1.6;
+        }
+        
+        .special-day {
+            animation: glow 2s infinite alternate;
+            color: #ff4081 !important;
+            font-weight: bold;
+            padding: 3px 8px;
+            background: rgba(255, 64, 129, 0.1);
+            border-radius: 5px;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(255, 64, 129, 0.5); }
+            to { box-shadow: 0 0 15px rgba(255, 64, 129, 0.8); }
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: #ffb6c1;
+            font-size: 18px;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .seed-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffc8dd, #ffafcc, #ffc8dd);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+        }
+        
+        .seed-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+        
+        .seed-message {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            background: rgba(233, 30, 99, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: pulse 2s infinite;
         }
-        @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
+        
+        .seed-message h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        #dynamic-info {
-            text-align: center;
-            margin: 20px auto;
-            padding: 15px;
-            background: rgba(255, 240, 245, 0.9);
-            border-radius: 10px;
-            max-width: 600px;
-            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.2);
+        
+        .seed-message p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        #text {
+            min-height: 400px;
+            padding: 20px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        
+        #text.show {
+            opacity: 1;
+        }
+        
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            .love-metric {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .metric-box {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .seed-message h2 {
+                font-size: 28px;
+            }
+            
+            .seed-message p {
+                font-size: 16px;
+            }
+            
+            #text {
+                min-height: 300px;
+                padding: 15px;
+            }
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid #ffc8dd;
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: none;
+        }
+        
+        .music-control.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .music-control i {
+            color: #e91e63;
+            font-size: 24px;
         }
     </style>
 </head>
 
 <body>
-    <div id="main">
+    <!-- 点击种子页面 -->
+    <div class="seed-container" id="seedContainer">
+        <div class="seed-message">
+            <h2>❤ 爱的种子 ❤</h2>
+            <p>点击这颗种子，让它长成我们的爱情树</p>
+            <p>彬彬 ❤ 鹏鹏</p>
+            <p>从 2024年5月24日 开始</p>
+        </div>
+    </div>
+    
+    <!-- 浮动爱心背景 -->
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
+    <!-- 音乐控制按钮 -->
+    <div class="music-control" id="musicControl">
+        <i>🎵</i>
+    </div>
+    
+    <!-- 主内容区域 -->
+    <div id="main" style="display: none; opacity: 0;">
         <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a
                 href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a
                 href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
         <div id="wrap">
+            <!-- 情书区域 -->
             <div id="text">
                 <div id="code">
-                    <span class="say">一定会爱你</span><br><br>
+                    <div class="main-title">一定会爱你</div>
                     <span class="say">我知道，你是一个天真、善良又温柔的男孩</span><br>
                     <span class="say">这段和你并肩走过的<span id="duration" class="duration-placeholder">[加载中...]</span>时光，是我生命里最明亮的章节</span><br>
                     <span class="say">如果你愿意，让我牵紧你的手，在属于我们的故事里</span><br>
@@ -67,49 +379,630 @@
                     <span class="say">愿以真心，换你我往后朝朝暮暮</span><br>
                     <span class="say">让我好好爱你，行吗</span><br>
                     <br>
-                    <span class="say"><span class="space"></span> -- 爱你的彬彬。</span>
+                    <span class="say"><span class="space"></span> -- 永远爱你的彬彬。</span>
                 </div>
             </div>
             
-            <!-- 动态信息区域 -->
-            <div id="dynamic-info">
-                <h3 style="color: #e91e63;">❤ 我们的故事 ❤</h3>
-                <p>彬彬和鹏鹏已经在一起：<span id="together-days">0</span> 天</p>
-                <p>今天的日期：<span id="current-date">2024年5月24日</span></p>
-                <p>下一百天纪念日还有：<span id="next-hundred">0</span> 天</p>
-            </div>
+            <!-- 爱情纪念册将在这里动态创建 -->
             
             <div id="clock-box">
-                <a href="javascript:void(0)">彬彬</a> 和 <a href="javascript:void(0)">鹏鹏</a> 在一起的
+                <span class="romantic-text">彬彬</span> 
+                <span class="heart-icon">❤</span> 和 
+                <span class="heart-icon">❤</span>
+                <span class="romantic-text">鹏鹏</span> 的爱情历程
                 <div id="clock"></div>
             </div>
-            <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
     </div>
+    
+    <!-- 画布 -->
+    <canvas id="canvas" width="1100" height="680"></canvas>
 
-    <audio preload="auto" autoplay="" id="media" src="恋人-李荣浩.mp3" autoplay preload loop="loop"></audio>
+    <!-- 音频 -->
+    <audio preload="auto" id="media" loop="loop">
+        <source src="love.mp3" type="audio/mpeg">
+        <source src="love.ogg" type="audio/ogg">
+    </audio>
 
+    <!-- ========== 动画核心代码开始 ========== -->
     <script>
-        // 开始日期（请修改为你们实际在一起的日期）
+    // love.js 的核心动画代码直接写在这里
+    (function(window){
+        function random(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+        function bezier(cp, t) {  
+            var p1 = cp[0].mul((1 - t) * (1 - t));
+            var p2 = cp[1].mul(2 * t * (1 - t));
+            var p3 = cp[2].mul(t * t); 
+            return p1.add(p2).add(p3);
+        }  
+
+        function inheart(x, y, r) {
+            var z = ((x / r) * (x / r) + (y / r) * (y / r) - 1) * ((x / r) * (x / r) + (y / r) * (y / r) - 1) * ((x / r) * (x / r) + (y / r) * (y / r) - 1) - (x / r) * (x / r) * (y / r) * (y / r) * (y / r);
+            return z < 0;
+        }
+
+        Point = function(x, y) {
+            this.x = x || 0;
+            this.y = y || 0;
+        }
+        Point.prototype = {
+            clone: function() {
+                return new Point(this.x, this.y);
+            },
+            add: function(o) {
+                p = this.clone();
+                p.x += o.x;
+                p.y += o.y;
+                return p;
+            },
+            sub: function(o) {
+                p = this.clone();
+                p.x -= o.x;
+                p.y -= o.y;
+                return p;
+            },
+            div: function(n) {
+                p = this.clone();
+                p.x /= n;
+                p.y /= n;
+                return p;
+            },
+            mul: function(n) {
+                p = this.clone();
+                p.x *= n;
+                p.y *= n;
+                return p;
+            }
+        }
+
+        Heart = function() {
+            var points = [], x, y, t;
+            for (var i = 10; i < 30; i += 0.2) {
+                t = i / Math.PI;
+                x = 16 * Math.pow(Math.sin(t), 3);
+                y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+                points.push(new Point(x, y));
+            }
+            this.points = points;
+            this.length = points.length;
+        }
+        Heart.prototype = {
+            get: function(i, scale) {
+                return this.points[i].mul(scale || 1);
+            }
+        }
+
+        Seed = function(tree, point, scale, color) {
+            this.tree = tree;
+
+            var scale = scale || 1
+            var color = color || '#FF0000';
+
+            this.heart = {
+                point  : point,
+                scale  : scale,
+                color  : color,
+                figure : new Heart(),
+            }
+
+            this.cirle = {
+                point  : point,
+                scale  : scale,
+                color  : color,
+                radius : 5,
+            }
+        }
+        Seed.prototype = {
+            draw: function() {
+                this.drawHeart();
+                this.drawText();
+            },
+            addPosition: function(x, y) {
+                this.cirle.point = this.cirle.point.add(new Point(x, y));
+            },
+            canMove: function() {
+                return this.cirle.point.y < (this.tree.height + 20); 
+            },
+            move: function(x, y) {
+                this.clear();
+                this.drawCirle();
+                this.addPosition(x, y);
+            },
+            canScale: function() {
+                return this.heart.scale > 0.2;
+            },
+            setHeartScale: function(scale) {
+                this.heart.scale *= scale;
+            },
+            scale: function(scale) {
+                this.clear();
+                this.drawCirle();
+                this.drawHeart();
+                this.setHeartScale(scale);
+            },
+            drawHeart: function() {
+                var ctx = this.tree.ctx, heart = this.heart;
+                var point = heart.point, color = heart.color, 
+                    scale = heart.scale;
+                ctx.save();
+                ctx.fillStyle = color;
+                ctx.translate(point.x, point.y);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                for (var i = 0; i < heart.figure.length; i++) {
+                    var p = heart.figure.get(i, scale);
+                    ctx.lineTo(p.x, -p.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            },
+            drawCirle: function() {
+                var ctx = this.tree.ctx, cirle = this.cirle;
+                var point = cirle.point, color = cirle.color, 
+                    scale = cirle.scale, radius = cirle.radius;
+                ctx.save();
+                ctx.fillStyle = color;
+                ctx.translate(point.x, point.y);
+                ctx.scale(scale, scale);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            },
+            drawText: function() {
+                var ctx = this.tree.ctx, heart = this.heart;
+                var point = heart.point, color = heart.color, 
+                    scale = heart.scale;
+                ctx.save();
+                ctx.strokeStyle = color;
+                ctx.fillStyle = color;
+                ctx.translate(point.x, point.y);
+                ctx.scale(scale, scale);
+                ctx.moveTo(0, 0);
+                ctx.lineTo(15, 15);
+                ctx.lineTo(60, 15);
+                ctx.stroke();
+
+                ctx.moveTo(0, 0);
+                ctx.scale(0.75, 0.75);
+                ctx.font = "12px 微软雅黑,Verdana";
+                ctx.fillText("click here", 23, 16);
+                ctx.restore();
+            },
+            clear: function() {
+                var ctx = this.tree.ctx, cirle = this.cirle;
+                var point = cirle.point, scale = cirle.scale, radius = 26;
+                var w = h = (radius * scale);
+                ctx.clearRect(point.x - w, point.y - h, 4 * w, 4 * h);
+            },
+            hover: function(x, y) {
+                var ctx = this.tree.ctx;
+                var pixel = ctx.getImageData(x, y, 1, 1);
+                return pixel.data[3] == 255
+            }
+        }
+
+        Footer = function(tree, width, height, speed) {
+            this.tree = tree;
+            this.point = new Point(tree.seed.heart.point.x, tree.height - height / 2);
+            this.width = width;
+            this.height = height;
+            this.speed = speed || 2;
+            this.length = 0;
+        }
+        Footer.prototype = {
+            draw: function() {
+                var ctx = this.tree.ctx, point = this.point;
+                var len = this.length / 2;
+
+                ctx.save();
+                ctx.strokeStyle = 'rgb(35, 31, 32)';
+                ctx.lineWidth = this.height;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.translate(point.x, point.y);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(len, 0);
+                ctx.lineTo(-len, 0);
+                ctx.stroke();
+                ctx.restore();
+
+                if (this.length < this.width) {
+                    this.length += this.speed;
+                }
+            }
+        }
+
+        Tree = function(canvas, width, height, opt) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.width = width;
+            this.height = height;
+            this.opt = opt || {};
+
+            this.record = {};
+            
+            this.initSeed();
+            this.initFooter();
+            this.initBranch();
+            this.initBloom();
+        }
+        Tree.prototype = {
+            initSeed: function() {
+                var seed = this.opt.seed || {};
+                var x = seed.x || this.width / 2;
+                var y = seed.y || this.height / 2;
+                var point = new Point(x, y);
+                var color = seed.color || '#FF0000';
+                var scale = seed.scale || 1;
+
+                this.seed = new Seed(this, point, scale, color);
+            },
+
+            initFooter: function() {
+                var footer = this.opt.footer || {};
+                var width = footer.width || this.width;
+                var height = footer.height || 5;
+                var speed = footer.speed || 2;
+                this.footer = new Footer(this, width, height, speed);
+            },
+
+            initBranch: function() {
+                var branchs = this.opt.branch || []
+                this.branchs = [];
+                this.addBranchs(branchs);
+            },
+
+            initBloom: function() {
+                var bloom = this.opt.bloom || {};
+                var cache = [],
+                    num = bloom.num || 500, 
+                    width = bloom.width || this.width,
+                    height = bloom.height || this.height,
+                    figure = this.seed.heart.figure;
+                var r = 240, x, y;
+                for (var i = 0; i < num; i++) {
+                    cache.push(this.createBloom(width, height, r, figure));
+                }
+                this.blooms = [];
+                this.bloomsCache = cache;
+            },
+
+            toDataURL: function(type) {
+                return this.canvas.toDataURL(type);
+            },
+
+            draw: function(k) {
+                var s = this, ctx = s.ctx;
+                var rec = s.record[k];
+                if (!rec) {
+                    return ;
+                }
+                var point = rec.point,
+                    image = rec.image;
+
+                ctx.save();
+                ctx.putImageData(image, point.x, point.y);
+                ctx.restore();
+            },
+
+            addBranch: function(branch) {
+                this.branchs.push(branch);
+            },
+
+            addBranchs: function(branchs){
+                var s = this, b, p1, p2, p3, r, l, c;
+                for (var i = 0; i < branchs.length; i++) {
+                    b = branchs[i];
+                    p1 = new Point(b[0], b[1]);
+                    p2 = new Point(b[2], b[3]);
+                    p3 = new Point(b[4], b[5]);
+                    r = b[6];
+                    l = b[7];
+                    c = b[8]
+                    s.addBranch(new Branch(s, p1, p2, p3, r, l, c)); 
+                }
+            },
+
+            removeBranch: function(branch) {
+                var branchs = this.branchs;
+                for (var i = 0; i < branchs.length; i++) {
+                    if (branchs[i] === branch) {
+                        branchs.splice(i, 1);
+                    }
+                }
+            },
+
+            canGrow: function() {
+                return !!this.branchs.length;
+            },
+            grow: function() {
+                var branchs = this.branchs;
+                for (var i = 0; i < branchs.length; i++) {
+                    var branch = branchs[i];
+                    if (branch) {
+                        branch.grow();
+                    }
+                }
+            },
+
+            addBloom: function (bloom) {
+                this.blooms.push(bloom);
+            },
+
+            removeBloom: function (bloom) {
+                var blooms = this.blooms;
+                for (var i = 0; i < blooms.length; i++) {
+                    if (blooms[i] === bloom) {
+                        blooms.splice(i, 1);
+                    }
+                }
+            },
+
+            createBloom: function(width, height, radius, figure, color, alpha, angle, scale, place, speed) {
+                var x, y;
+                while (true) {
+                    x = random(20, width - 20);
+                    y = random(20, height - 20);
+                    if (inheart(x - width / 2, height - (height - 40) / 2 - y, radius)) {
+                        return new Bloom(this, new Point(x, y), figure, color, alpha, angle, scale, place, speed);
+                    }
+                }
+            },
+            
+            canFlower: function() {
+                return !!this.blooms.length;
+            }, 
+            flower: function(num) {
+                var s = this, blooms = s.bloomsCache.splice(0, num);
+                for (var i = 0; i < blooms.length; i++) {
+                    s.addBloom(blooms[i]);
+                }
+                blooms = s.blooms;
+                for (var j = 0; j < blooms.length; j++) {
+                    blooms[j].flower();
+                }
+            },
+
+            snapshot: function(k, x, y, width, height) {
+                var ctx = this.ctx;
+                var image = ctx.getImageData(x, y, width, height); 
+                this.record[k] = {
+                    image: image,
+                    point: new Point(x, y),
+                    width: width,
+                    height: height
+                }
+            },
+            setSpeed: function(k, speed) {
+                this.record[k || "move"].speed = speed;
+            },
+            move: function(k, x, y) {
+                var s = this, ctx = s.ctx;
+                var rec = s.record[k || "move"];
+                var point = rec.point,
+                    image = rec.image,
+                    speed = rec.speed || 10,
+                    width = rec.width,
+                    height = rec.height; 
+
+                i = point.x + speed < x ? point.x + speed : x;
+                j = point.y + speed < y ? point.y + speed : y; 
+
+                ctx.save();
+                ctx.clearRect(point.x, point.y, width, height);
+                ctx.putImageData(image, i, j);
+                ctx.restore();
+
+                rec.point = new Point(i, j);
+                rec.speed = speed * 0.95;
+
+                if (rec.speed < 2) {
+                    rec.speed = 2;
+                }
+                return i < x || j < y;
+            },
+
+            jump: function() {
+                var s = this, blooms = s.blooms;
+                if (blooms.length) {
+                    for (var i = 0; i < blooms.length; i++) {
+                        blooms[i].jump();
+                    }
+                } 
+                if ((blooms.length && blooms.length < 3) || !blooms.length) {
+                    var bloom = this.opt.bloom || {},
+                        width = bloom.width || this.width,
+                        height = bloom.height || this.height,
+                        figure = this.seed.heart.figure;
+                    var r = 240, x, y;
+                    for (var i = 0; i < random(1,2); i++) {
+                        blooms.push(this.createBloom(width / 2 + width, height, r, figure, null, 1, null, 1, new Point(random(-100,600), 720), random(200,300)));
+                    }
+                }
+            }
+        }
+
+        Branch = function(tree, point1, point2, point3, radius, length, branchs) {
+            this.tree = tree;
+            this.point1 = point1;
+            this.point2 = point2;
+            this.point3 = point3;
+            this.radius = radius;
+            this.length = length || 100;    
+            this.len = 0;
+            this.t = 1 / (this.length - 1);   
+            this.branchs = branchs || [];
+        }
+
+        Branch.prototype = {
+            grow: function() {
+                var s = this, p; 
+                if (s.len <= s.length) {
+                    p = bezier([s.point1, s.point2, s.point3], s.len * s.t);
+                    s.draw(p);
+                    s.len += 1;
+                    s.radius *= 0.97;
+                } else {
+                    s.tree.removeBranch(s);
+                    s.tree.addBranchs(s.branchs);
+                }
+            },
+            draw: function(p) {
+                var s = this;
+                var ctx = s.tree.ctx;
+                ctx.save();
+                ctx.beginPath();
+                ctx.fillStyle = 'RGB(0,128,128)';
+                ctx.shadowColor = '#22b822';
+                ctx.shadowBlur = 2;
+                ctx.moveTo(p.x, p.y);
+                ctx.arc(p.x, p.y, s.radius, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
+            this.tree = tree;
+            this.point = point;
+            this.color = color || 'rgb(255,' + random(0, 255) + ',' + random(0, 255) + ')';
+            this.alpha = alpha || random(0.3, 1);
+            this.angle = angle || random(0, 360);
+            this.scale = scale || 0.1;
+            this.place = place;
+            this.speed = speed;
+
+            this.figure = figure;
+        }
+        Bloom.prototype = {
+            setFigure: function(figure) {
+                this.figure = figure;
+            },
+            flower: function() {
+                var s = this;
+                s.draw();
+                s.scale += 0.1;
+                if (s.scale > 1) {
+                    s.tree.removeBloom(s);
+                }
+            },
+            draw: function() {
+                var s = this, ctx = s.tree.ctx, figure = s.figure;
+
+                ctx.save();
+                ctx.fillStyle = s.color;
+                ctx.globalAlpha = s.alpha;
+                ctx.translate(s.point.x, s.point.y);
+                ctx.scale(s.scale, s.scale);
+                ctx.rotate(s.angle);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                for (var i = 0; i < figure.length; i++) {
+                    var p = figure.get(i);
+                    ctx.lineTo(p.x, -p.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            },
+            jump: function() {
+                var s = this, height = s.tree.height;
+
+                if (s.point.x < -20 || s.point.y > height + 20) {
+                    s.tree.removeBloom(s);
+                } else {
+                    s.draw();
+                    s.point = s.place.sub(s.point).div(s.speed).add(s.point);
+                    s.angle += 0.05;
+                    s.speed -= 1;
+                }
+            }
+        }
+
+        window.random = random;
+        window.bezier = bezier;
+        window.Point = Point;
+        window.Tree = Tree;
+
+    })(window);
+    </script>
+    <!-- ========== 动画核心代码结束 ========== -->
+
+    <!-- ========== 页面逻辑代码 ========== -->
+    <script>
+        // 开始日期
         const startDate = new Date('2024-05-24');
         
-        // 计算时间间隔的函数
-        function calculateDuration() {
+        // 动画状态
+        let animationStarted = false;
+        
+        // 音乐控制
+        const audio = document.getElementById('media');
+        const musicControl = document.getElementById('musicControl');
+        let musicStarted = false;
+        
+        // 初始化音乐
+        audio.volume = 0.5;
+        
+        // 音乐控制
+        musicControl.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                musicControl.innerHTML = '<i>🎵</i>';
+            } else {
+                audio.pause();
+                musicControl.innerHTML = '<i>🔇</i>';
+            }
+        });
+        
+        // 创建浮动爱心
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floating-hearts');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 12 + 10) + 'px';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                heart.style.color = `rgba(255, ${Math.random() * 100 + 64}, ${Math.random() * 100 + 129}, 0.6)`;
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // 计算时间间隔
+        function calculateRomanticDuration() {
             const now = new Date();
             const diffTime = Math.abs(now - startDate);
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             
+            if (diffDays === 0) return "刚刚开始的美好";
+            if (diffDays === 1) return "甜蜜的第一天";
+            if (diffDays < 7) return diffDays + "个甜蜜日夜";
             if (diffDays < 30) {
-                return diffDays + "天";
-            } else if (diffDays < 365) {
+                const weeks = Math.floor(diffDays / 7);
+                return weeks + "周的美好时光";
+            }
+            if (diffDays < 365) {
                 const months = Math.floor(diffDays / 30);
                 const days = diffDays % 30;
-                return months + "个月" + (days > 0 ? days + "天" : "");
-            } else {
-                const years = Math.floor(diffDays / 365);
-                const months = Math.floor((diffDays % 365) / 30);
-                return years + "年" + (months > 0 ? months + "个月" : "");
+                return months + "个月" + (days > 0 ? days + "天" : "") + "的陪伴";
             }
+            const years = Math.floor(diffDays / 365);
+            const months = Math.floor((diffDays % 365) / 30);
+            return years + "年" + (months > 0 ? months + "个月" : "") + "的永恒之约";
         }
         
         // 计算在一起天数
@@ -126,41 +1019,115 @@
             return nextHundred - togetherDays;
         }
         
-        // 更新日期显示
-        function updateCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN', options);
+        // 创建爱情纪念册 - 在动画完全结束后才调用
+        function createLoveAlbum() {
+            const wrap = document.getElementById('wrap');
+            const clockBox = document.getElementById('clock-box');
+            
+            // 创建纪念册HTML
+            const albumHTML = `
+                <div class="love-album">
+                    <h3>❤ 我们的爱情纪念册 ❤</h3>
+                    
+                    <div class="romantic-date">
+                        <span class="heart-icon">❤</span>
+                        今天：<span id="current-date">${new Date().toLocaleDateString('zh-CN', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric', 
+                            weekday: 'long' 
+                        })}</span>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                    
+                    <div class="love-metric">
+                        <div class="metric-box">
+                            <span class="metric-label">在一起天数</span>
+                            <span class="metric-value">${calculateTogetherDays()}</span>
+                            <span class="heart-icon">❤</span>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <span class="metric-label">下个纪念日</span>
+                            <span class="metric-value">${calculateNextHundredDays()}</span>
+                            <span class="metric-label">天后</span>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <span class="metric-label">爱情温度</span>
+                            <span class="metric-value">100°</span>
+                            <span class="heart-icon">♥</span>
+                        </div>
+                    </div>
+                    
+                    <div class="love-note">
+                        每一分每一秒，爱你都在加深一分<br>
+                        从 <span style="color: #e91e63; font-weight: bold;">${startDate.toLocaleDateString('zh-CN', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}</span> 开始，我们的故事永不结束
+                    </div>
+                </div>
+            `;
+            
+            // 在时钟盒子之前插入纪念册
+            clockBox.insertAdjacentHTML('beforebegin', albumHTML);
         }
         
-        // 更新所有动态内容
-        function updateDynamicContent() {
-            document.getElementById('duration').textContent = calculateDuration();
-            document.getElementById('together-days').textContent = calculateTogetherDays();
-            document.getElementById('next-hundred').textContent = calculateNextHundredDays();
-            updateCurrentDate();
-        }
-        
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            updateDynamicContent();
-            // 每天更新一次
-            setInterval(updateDynamicContent, 24 * 60 * 60 * 1000);
-        });
-
-        (function () {
-            var canvas = $('#canvas');
-
-            if (!canvas[0].getContext) {
-                $("#error").show();
-                return false;
+        // 开始体验
+        function startExperience() {
+            if (animationStarted) return;
+            animationStarted = true;
+            
+            const seedContainer = document.getElementById('seedContainer');
+            const mainContent = document.getElementById('main');
+            const textElement = document.getElementById('text');
+            
+            // 淡出种子页面
+            seedContainer.classList.add('hidden');
+            
+            // 开始音乐
+            if (!musicStarted) {
+                audio.play().then(() => {
+                    musicStarted = true;
+                });
             }
-
+            
+            // 1秒后开始动画
+            setTimeout(() => {
+                seedContainer.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                // 显示音乐控制按钮
+                setTimeout(() => {
+                    musicControl.classList.add('show');
+                }, 2000);
+                
+                // 更新情书中的时间
+                document.getElementById('duration').textContent = calculateRomanticDuration();
+                
+                // 开始大树生长动画
+                startTreeAnimation();
+                
+                // 3秒后显示情书（打字效果）
+                setTimeout(() => {
+                    textElement.classList.add('show');
+                    $("#code").show().typewriter();
+                    
+                    // 情书动画完成后（约10秒后），创建并显示爱情纪念册
+                    setTimeout(createLoveAlbum, 10000);
+                }, 3000);
+                
+            }, 1000);
+        }
+        
+        // 开始大树生长动画
+        function startTreeAnimation() {
+            // 设置动画参数
+            var canvas = $('#canvas');
             var width = canvas.width();
             var height = canvas.height();
-
-            canvas.attr("width", width);
-            canvas.attr("height", height);
 
             var opts = {
                 seed: {
@@ -198,32 +1165,18 @@
                 }
             }
 
+            // 创建树实例并开始动画
             var tree = new Tree(canvas[0], width, height, opts);
             var seed = tree.seed;
             var foot = tree.footer;
-            var hold = 1;
-
-            canvas.click(function (e) {
-                var offset = canvas.offset(), x, y;
-                x = e.pageX - offset.left;
-                y = e.pageY - offset.top;
-                if (seed.hover(x, y)) {
-                    hold = 0;
-                    canvas.unbind("click");
-                    canvas.unbind("mousemove");
-                    canvas.removeClass('hand');
-                }
-            }).mousemove(function (e) {
-                var offset = canvas.offset(), x, y;
-                x = e.pageX - offset.left;
-                y = e.pageY - offset.top;
-                canvas.toggleClass('hand', seed.hover(x, y));
-            });
-
+            
+            // 使用Jscex控制动画序列
             var seedAnimate = eval(Jscex.compile("async", function () {
                 seed.draw();
-                while (hold) {
+                while (true) {
                     $await(Jscex.Async.sleep(10));
+                    // 点击后立即开始生长
+                    break;
                 }
                 while (seed.canScale()) {
                     seed.scale(0.95);
@@ -259,7 +1212,6 @@
                 foot.draw();
                 tree.snapshot("p2", 500, 0, 610, 680);
 
-                // 会有闪烁不得意这样做, (＞﹏＜)
                 canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
                 canvas.css("background", "#ffc0cb");
                 $await(Jscex.Async.sleep(300));
@@ -284,12 +1236,7 @@
                 together.setSeconds(0);
                 together.setMilliseconds(0);
 
-                $("#code").show().typewriter();
                 $("#clock-box").fadeIn(500);
-                $("#dynamic-info").fadeIn(500);
-                
-                // 更新动态内容
-                updateDynamicContent();
                 
                 while (true) {
                     timeElapse(together);
@@ -308,8 +1255,15 @@
                 $await(jumpAnimate());
             }));
 
+            // 开始动画
             runAsync().start();
-        })();
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            document.getElementById('seedContainer').addEventListener('click', startExperience);
+        });
     </script>
 </body>
 </html>
